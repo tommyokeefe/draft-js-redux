@@ -30,38 +30,38 @@ const store = configureStore(initialState);
 import App from 'containers/App';
 
 const render = () => {
-    ReactDOM.render(
-        <Provider store={store}>
-            <App />
-        </Provider>,
-        document.getElementById('app')
-    );
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('app')
+  );
 };
 
 
 // Hot reloadable translation json files
 if (module.hot) {
-    // modules.hot.accept does not accept dynamic dependencies,
-    // have to be constants at compile-time
-    module.hot.accept('./i18n', () => {
-        render(translationMessages);
-    });
+  // modules.hot.accept does not accept dynamic dependencies,
+  // have to be constants at compile-time
+  module.hot.accept('./i18n', () => {
+    render(translationMessages);
+  });
 }
 
 // Chunked polyfill for browsers without Intl support
 if (!window.Intl) {
-    (new Promise((resolve) => {
-        resolve(System.import('intl'));
-    }))
-        .then(() => Promise.all([
-            System.import('intl/locale-data/jsonp/de.js'),
-        ]))
-        .then(() => render(translationMessages))
-        .catch((err) => {
-            throw err;
-        });
+  (new Promise((resolve) => {
+    resolve(System.import('intl'));
+  }))
+    .then(() => Promise.all([
+      System.import('intl/locale-data/jsonp/de.js'),
+    ]))
+    .then(() => render(translationMessages))
+    .catch((err) => {
+      throw err;
+    });
 } else {
-    render(translationMessages);
+  render(translationMessages);
 }
 
 // Install ServiceWorker and AppCache in the end since

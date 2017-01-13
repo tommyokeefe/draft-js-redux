@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Editor from 'draft-js-plugins-editor';
 import 'draft-js/dist/Draft.css';
 
@@ -15,23 +14,26 @@ const { InlineToolbar } = inlineToolbarPlugin;
 
 export default class EditorWrapper extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <div>
-                <Editor
-                    editorState={this.props.editorState}
-                    onChange={this.props.onChange}
-                    plugins={[
-                        assetPlugin,
-                        inlineToolbarPlugin,
-                    ]}
-                />
-                <InlineToolbar/>
-            </div>
-        );
-    }
+
+
+  render() {
+    return (
+      <div>
+        <Editor
+          handlePastedText={this.props.handlePastedText}
+          editorState={this.props.editorState}
+          onChange={this.props.onChange}
+          plugins={[
+            assetPlugin,
+            inlineToolbarPlugin,
+          ]}
+        />
+        <InlineToolbar/>
+      </div>
+    );
+  }
 }
